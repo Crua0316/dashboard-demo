@@ -17,7 +17,7 @@ Real-time KPIs, interactive charts, data tables, and a collapsible sidebar — a
 
 ## Preview
 
-> Live demo -> **[nexusbi-demo.vercel.app](#)**
+> Live demo -> **[nexusbi-demo-crua.vercel.app](#)**
 
 ![NexusBI preview](https://placehold.co/1200x630/111827/6366f1?text=NexusBI+Dashboard+Preview)
 
