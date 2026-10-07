@@ -17,7 +17,7 @@ Real-time KPIs, interactive charts, data tables, and a collapsible sidebar — a
 
 ## Preview
 
-> Live demo → **[nexusbi-demo.vercel.app](#)**
+> Live demo -> **[nexusbi-demo.vercel.app](#)**
 
 ![NexusBI preview](https://placehold.co/1200x630/111827/6366f1?text=NexusBI+Dashboard+Preview)
 
@@ -25,15 +25,15 @@ Real-time KPIs, interactive charts, data tables, and a collapsible sidebar — a
 
 ## Features
 
-- **KPI cards** — Revenue, Active Users, Orders and Conversion Rate with trend indicators
-- **Revenue chart** — 12-month area chart with gradient fill and custom tooltips
-- **Orders chart** — monthly bar chart with hover states
-- **Traffic donut** — traffic source breakdown (Organic, Paid, Social, Referral)
-- **Transactions table** — paginated data table with status badges and search filtering
-- **Global search** — instant client-side search across all transactions
-- **Collapsible sidebar** — icon-only mode on collapse, mobile drawer with overlay
-- **Dark / Light toggle** — full theme switch persisted across sessions
-- **Fully responsive** — stacks gracefully from mobile to wide desktop
+- **KPI cards** - Revenue, Active Users, Orders and Conversion Rate with trend indicators
+- **Revenue chart** - 12-month area chart with gradient fill and custom tooltips
+- **Orders chart** - monthly bar chart with hover states
+- **Traffic donut** - traffic source breakdown (Organic, Paid, Social, Referral)
+- **Transactions table** - paginated data table with status badges and search filtering
+- **Global search** - instant client-side search across all transactions
+- **Collapsible sidebar** - icon-only mode on collapse, mobile drawer with overlay
+- **Dark / Light toggle** - full theme switch persisted across sessions
+- **Fully responsive** - stacks gracefully from mobile to wide desktop
 
 ---
 
@@ -92,16 +92,16 @@ npm run build
 
 This demo was built to showcase skills relevant to client work on Fiverr:
 
-- **Data visualization** — 3 different chart types using Recharts with custom styling
-- **State management** — theme toggle, sidebar collapse, pagination and search all in React state
-- **Component reusability** — `KPICard` and `Pagination` are fully generic, drop-in components
-- **Responsive layout** — CSS Grid with a collapsible sidebar that converts to a mobile drawer
-- **Theme system** — dark/light switch using `:root` CSS variables with zero JavaScript color logic
+- **Data visualization** - 3 different chart types using Recharts with custom styling
+- **State management** - theme toggle, sidebar collapse, pagination and search all in React state
+- **Component reusability** - KPICard and Pagination are fully generic, drop-in components
+- **Responsive layout** - CSS Grid with a collapsible sidebar that converts to a mobile drawer
+- **Theme system** - dark/light switch using `:root` CSS variables with zero JavaScript color logic
 
 ---
 
 <div align="center">
 
-Built by **Cristian Rugeles** · [GitHub](https://github.com/cresrugi) · [Fiverr](https://fiverr.com)
+Built by **Cristian Rugeles** - [GitHub](https://github.com/cresrugi) - [Fiverr](https://fiverr.com)
 
 </div>
