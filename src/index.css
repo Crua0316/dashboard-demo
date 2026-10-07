@@ -1,0 +1,47 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0F1117;
+  --bg-2:      #141720;
+  --surface:   #1A1D2E;
+  --surface-2: #22263A;
+  --border:    rgba(255,255,255,.07);
+  --accent:    #6366F1;
+  --accent-2:  #22D3EE;
+  --accent-3:  #A78BFA;
+  --success:   #10B981;
+  --warning:   #F59E0B;
+  --danger:    #EF4444;
+  --fg:        #F1F5F9;
+  --fg-muted:  #64748B;
+  --fg-soft:   #94A3B8;
+  --radius:    12px;
+  --sidebar-w: 240px;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg:        #F8FAFC;
+  --bg-2:      #F1F5F9;
+  --surface:   #FFFFFF;
+  --surface-2: #F1F5F9;
+  --border:    rgba(0,0,0,.08);
+  --fg:        #0F172A;
+  --fg-muted:  #94A3B8;
+  --fg-soft:   #64748B;
+  color-scheme: light;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
