@@ -92,7 +92,10 @@ export default function App() {
             <button className="icon-btn" onClick={toggleTheme} title="Cambiar tema">
               {theme === 'dark' ? '☀️' : '🌙'}
             </button>
-            <button className="icon-btn">🔔</button>
+            <button className="icon-btn notif-btn" title="Notificaciones">
+              🔔
+              <span className="notif-badge">3</span>
+            </button>
             <div className="topbar-avatar">CR</div>
           </div>
         </header>
