@@ -480,8 +480,9 @@
 @media (max-width: 700px) {
   .page { padding: 1rem; }
   .kpi-grid { grid-template-columns: 1fr 1fr; gap: .75rem; }
-  .sidebar { display: none; }
   .search-box { display: none; }
+  .topbar { padding: 0 1rem; }
+  .breadcrumb { font-size: .8rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
 @media (max-width: 480px) {
   .kpi-grid { grid-template-columns: 1fr; }

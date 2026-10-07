@@ -69,7 +69,13 @@ export default function App() {
           <div className="topbar-left">
             <button
               className="collapse-btn"
-              onClick={() => { setCollapsed(c => !c); setSidebarOpen(o => !o) }}
+              onClick={() => {
+                if (window.innerWidth <= 700) {
+                  setSidebarOpen(o => !o)
+                } else {
+                  setCollapsed(c => !c)
+                }
+              }}
               aria-label="toggle sidebar"
             >
               <span /><span /><span />
