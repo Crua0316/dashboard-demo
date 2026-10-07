@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { allOrders } from '../data/mockData'
+import { usePagination } from '../hooks/usePagination'
+import Pagination from '../components/Pagination'
 
 const statusStyle: Record<string, React.CSSProperties> = {
   'Completado': { background: 'rgba(16,185,129,.12)',  color: '#10B981' },
@@ -9,18 +11,23 @@ const statusStyle: Record<string, React.CSSProperties> = {
 }
 
 const FILTERS = ['Todos', 'Completado', 'Pendiente', 'Fallido', 'Reembolso']
+const PAGE_SIZE = 5
 
 export default function OrdersPage() {
   const [filter, setFilter] = useState('Todos')
   const [search, setSearch] = useState('')
 
-  const visible = allOrders.filter(o => {
+  const filtered = allOrders.filter(o => {
     const matchFilter = filter === 'Todos' || o.status === filter
     const matchSearch = o.customer.toLowerCase().includes(search.toLowerCase()) ||
                         o.id.toLowerCase().includes(search.toLowerCase()) ||
                         o.product.toLowerCase().includes(search.toLowerCase())
     return matchFilter && matchSearch
   })
+
+  const { page, totalPages, slice, goTo, reset, total } = usePagination(filtered, PAGE_SIZE)
+
+  useEffect(() => { reset() }, [filter, search])
 
   return (
     <div className="page-content">
@@ -37,7 +44,6 @@ export default function OrdersPage() {
 
       <div className="chart-card" style={{ padding: '1rem 1.4rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '.75rem' }}>
-          {/* Filter pills */}
           <div style={{ display: 'flex', gap: '.4rem', flexWrap: 'wrap' }}>
             {FILTERS.map(f => (
               <button
@@ -58,7 +64,6 @@ export default function OrdersPage() {
               >{f}</button>
             ))}
           </div>
-          {/* Search */}
           <div className="search-box" style={{ background: 'var(--surface-2)' }}>
             <span>🔍</span>
             <input
@@ -81,9 +86,9 @@ export default function OrdersPage() {
               </tr>
             </thead>
             <tbody>
-              {visible.length === 0 ? (
+              {slice.length === 0 ? (
                 <tr><td colSpan={7} style={{ textAlign: 'center', padding: '2rem', color: 'var(--fg-muted)' }}>Sin resultados</td></tr>
-              ) : visible.map(o => (
+              ) : slice.map(o => (
                 <tr key={o.id}>
                   <td className="tx-id">{o.id}</td>
                   <td className="tx-customer">
@@ -100,14 +105,7 @@ export default function OrdersPage() {
             </tbody>
           </table>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '.75rem 0 0', fontSize: '.78rem', color: 'var(--fg-muted)' }}>
-          <span>Mostrando {visible.length} de {allOrders.length} órdenes</span>
-          <div style={{ display: 'flex', gap: '.4rem' }}>
-            <button className="btn-ghost-sm" style={{ padding: '.2rem .6rem', fontSize: '.78rem' }}>‹ Anterior</button>
-            <button className="btn-ghost-sm" style={{ padding: '.2rem .6rem', fontSize: '.78rem', background: 'rgba(99,102,241,.14)', borderColor: 'var(--accent)', color: 'var(--accent)' }}>1</button>
-            <button className="btn-ghost-sm" style={{ padding: '.2rem .6rem', fontSize: '.78rem' }}>Siguiente ›</button>
-          </div>
-        </div>
+        <Pagination page={page} totalPages={totalPages} total={total} pageSize={PAGE_SIZE} onGoTo={goTo} />
       </div>
     </div>
   )

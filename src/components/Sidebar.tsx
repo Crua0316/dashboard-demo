@@ -2,6 +2,7 @@ interface SidebarProps {
   collapsed: boolean
   active: string
   onNav: (s: string) => void
+  mobileOpen?: boolean
 }
 
 const navItems = [
@@ -18,9 +19,9 @@ const bottomItems = [
   { id: 'help',     icon: '❓', label: 'Ayuda' },
 ]
 
-export default function Sidebar({ collapsed, active, onNav }: SidebarProps) {
+export default function Sidebar({ collapsed, active, onNav, mobileOpen }: SidebarProps) {
   return (
-    <aside className={`sidebar${collapsed ? ' collapsed' : ''}`}>
+    <aside className={`sidebar${collapsed ? ' collapsed' : ''}${mobileOpen ? ' mobile-open' : ''}`}>
       <div className="sidebar-logo">
         <div className="logo-icon">N</div>
         {!collapsed && <span className="logo-text">NexusBI</span>}
@@ -45,7 +46,8 @@ export default function Sidebar({ collapsed, active, onNav }: SidebarProps) {
         {bottomItems.map(item => (
           <button
             key={item.id}
-            className="nav-item"
+            className={`nav-item${active === item.id ? ' active' : ''}`}
+            onClick={() => onNav(item.id)}
             title={collapsed ? item.label : undefined}
           >
             <span className="nav-icon">{item.icon}</span>

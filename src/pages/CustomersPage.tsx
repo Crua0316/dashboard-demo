@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { customers } from '../data/mockData'
+import { usePagination } from '../hooks/usePagination'
+import Pagination from '../components/Pagination'
 
 const planColor: Record<string, string> = {
   Enterprise: '#6366F1',
@@ -7,27 +9,33 @@ const planColor: Record<string, string> = {
   Starter:    '#10B981',
 }
 
+const PAGE_SIZE = 6
+
 export default function CustomersPage() {
   const [search, setSearch] = useState('')
   const [selectedPlan, setSelectedPlan] = useState('Todos')
 
-  const visible = customers.filter(c => {
+  const filtered = customers.filter(c => {
     const matchPlan = selectedPlan === 'Todos' || c.plan === selectedPlan
     const matchSearch = c.name.toLowerCase().includes(search.toLowerCase()) ||
                         c.email.toLowerCase().includes(search.toLowerCase())
     return matchPlan && matchSearch
   })
 
-  const total  = customers.length
-  const active = customers.filter(c => c.status === 'Activo').length
-  const totalRevenue = customers.reduce((acc, c) => acc + c.spent, 0)
+  const { page, totalPages, slice, goTo, reset, total } = usePagination(filtered, PAGE_SIZE)
+
+  useEffect(() => { reset() }, [selectedPlan, search])
+
+  const totalCustomers = customers.length
+  const active         = customers.filter(c => c.status === 'Activo').length
+  const totalRevenue   = customers.reduce((acc, c) => acc + c.spent, 0)
 
   return (
     <div className="page-content">
       <div className="page-title-row">
         <div>
           <h1 className="page-title">Clientes</h1>
-          <p className="page-sub">{total} clientes registrados</p>
+          <p className="page-sub">{totalCustomers} clientes registrados</p>
         </div>
         <div className="page-actions">
           <button className="btn-ghost-sm">↓ Exportar</button>
@@ -38,9 +46,9 @@ export default function CustomersPage() {
       {/* Summary cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1rem' }}>
         {[
-          { label: 'Total clientes', value: total,                              icon: '👥', color: '#6366F1' },
-          { label: 'Clientes activos', value: active,                           icon: '✅', color: '#10B981' },
-          { label: 'Revenue total', value: `$${totalRevenue.toLocaleString()}`, icon: '💰', color: '#22D3EE' },
+          { label: 'Total clientes',  value: totalCustomers,                       icon: '👥', color: '#6366F1' },
+          { label: 'Clientes activos', value: active,                              icon: '✅', color: '#10B981' },
+          { label: 'Revenue total',   value: `$${totalRevenue.toLocaleString()}`,  icon: '💰', color: '#22D3EE' },
         ].map(s => (
           <div key={s.label} className="chart-card" style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.4rem' }}>
             <div style={{ width: 44, height: 44, borderRadius: 10, background: `${s.color}18`, color: s.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem', flexShrink: 0 }}>{s.icon}</div>
@@ -81,7 +89,7 @@ export default function CustomersPage() {
               <tr><th>Cliente</th><th>Plan</th><th>Órdenes</th><th>Total gastado</th><th>Miembro desde</th><th>Estado</th></tr>
             </thead>
             <tbody>
-              {visible.map(c => (
+              {slice.map(c => (
                 <tr key={c.id}>
                   <td>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '.6rem' }}>
@@ -110,6 +118,7 @@ export default function CustomersPage() {
             </tbody>
           </table>
         </div>
+        <Pagination page={page} totalPages={totalPages} total={total} pageSize={PAGE_SIZE} onGoTo={goTo} />
       </div>
     </div>
   )
